@@ -4,7 +4,7 @@
 	<!--Name of the mod to display to players-->
 	<DisplayName Value="mioHotkeysMod" />
 	<!--Short description of the mod-->
-	<ShortDescription Value="This is a short description" />
+	<ShortDescription Value="Adds many shortcuts and quick access features." />
 	<!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
 	<!--LongDescription Value="This is a long description" /-->
 	<LongDescription>
@@ -13,7 +13,7 @@ Adds many shortcuts and quick access features.
 
 ## Hotkeys  
 ### General  
-`ctrl + Q/W/E/R/T/Y/U`: Tool modes 
+`ctrl + Q/W/E/R/T/Y/U`: Tool modes  
 `shift + A/D`: Radius / Brush thickness  
 `shift + W/S`: Depth / Flow rate / Brush strength  
 `alt + W/S`: Regional themes  

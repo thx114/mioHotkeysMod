@@ -3,7 +3,7 @@ Adds many shortcuts and quick access features.
 
 ## Hotkeys  
 ### General  
-`ctrl + Q/W/E/R/T/Y/U`: Tool modes 
+`ctrl + Q/W/E/R/T/Y/U`: Tool modes  
 `shift + A/D`: Radius / Brush thickness  
 `shift + W/S`: Depth / Flow rate / Brush strength  
 `alt + W/S`: Regional themes  
