@@ -14,12 +14,9 @@ export const HomeSaveTypes: IHotkey = {
                 if (!await Lock('HomeSaveTypesLOAD',500)) { return null };
                 const HomeTypeSave = (window as any).mioHotkeyMod.HomeTypeSave
                 if (!HomeTypeSave) { return null }
-                console.log('LoadState ==> ', HomeTypeSave)
                 for (const dom of HomeTypeSave){
                     let doms = HomeSaveTypes.PATH.addObject_typeSelect.all.hasHtml(dom.name).items
-                    console.log('doms => ', doms)
                     doms.items = doms.filter((item:any) => Fsytle(item,'--level') == dom.level)
-                    console.log('doms ==> ', doms)
                     try{
                     Click( doms[0].children[1].children[0] )
                     }catch{
@@ -31,7 +28,6 @@ export const HomeSaveTypes: IHotkey = {
             async function SaveState() {
                 if (!await Lock('HomeSaveTypesSAVE',500)) { return null };
                 let clickList = []
-                console.log('SaveState ↓ ')
                 let selectE = HomeSaveTypes.PATH.addObject_typeSelect.class('selected').item
                 let level = Fsytle(selectE,'--level')
                 clickList.unshift(selectE)

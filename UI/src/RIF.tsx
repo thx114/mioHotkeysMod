@@ -1,3 +1,4 @@
+
 interface rifSettings {
     math: 'full' | 'inc'
     mode: 'text' | 'html'
@@ -196,17 +197,20 @@ export interface IHotkey {
     WHEEL_EVENTS?: Function
     MOUSEOVER_EVENTS?: Function
     DBCLICK_EVENTS?: Function
+    startFunc?: Function
+    MOUSEMOVE_EVENTS?: Function
 }
 
 export const delay = function delay(ms: number) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
+async function _Lock(name: string, time = 0) {
+    if (typeof ((window as any).Lock[name]) == 'undefined') { (window as any).Lock[name] = false }
+    if ((!(window as any).Lock[name]) && time === 0) { (window as any).Lock[name] = true; return true }
+    else if ((window as any).Lock[name] && time > 0) { await delay(time); (window as any).Lock[name] = false }
+    else { return false }
+}
+
 export const Lock = async function Lock(name: string, time = 50) {
-    async function _Lock(name: string, time = 0) {
-        if (typeof ((window as any).Lock[name]) == 'undefined') { (window as any).Lock[name] = false }
-        if ((!(window as any).Lock[name]) && time === 0) { (window as any).Lock[name] = true; return true }
-        else if ((window as any).Lock[name] && time > 0) { await delay(time); (window as any).Lock[name] = false }
-        else { return false }
-    }
     if (await _Lock(name)) { _Lock(name, time); return true }
     else { return false }
 }
@@ -238,7 +242,20 @@ export const WINODW = (window as any)
 export const on = {
     get Game(){return Boolean(document.body.querySelector('.game-main-screen_TRK'))},
     get Editor(){return Boolean(document.body.querySelector('.editor-main-screen_m89'))},
-    get Menu(){return Boolean(document.body.querySelector('.menu-ui_I8X'))}
+    get Menu(){return Boolean(document.body.querySelector('.menu-ui_I8X'))},
+    func(Fname:string,value?:null|boolean|'r'){
+        if(typeof((window as any).mioHotkeyMod.funcToggle[Fname]) =='undefined'){
+            (window as any).mioHotkeyMod.funcToggle[Fname] = true}
+        if(typeof value === "undefined") {
+            return (window as any).mioHotkeyMod.funcToggle[Fname];
+        }
+        else if(value === 'r'){
+            (window as any).mioHotkeyMod.funcToggle[Fname] = !(window as any).mioHotkeyMod.funcToggle[Fname]
+        }else{
+            (window as any).mioHotkeyMod.funcToggle[Fname] = value;
+        }
+        return (window as any).mioHotkeyMod.funcToggle[Fname]
+    }
 }
 export const join = function join(E: Element, add: Element, mode: 'append' | 'shift' | 'before' | 'after' = 'append', mname = 'M_NAME') {
     if (!E || E.classList.contains(mname)) { return }
@@ -260,3 +277,17 @@ export const join = function join(E: Element, add: Element, mode: 'append' | 'sh
     E.classList.add(mname)
 }
 
+export const editKey=(map: Map<string[], Function>, index: number, key?: any)=>{
+    let keys = Array.from(map.keys())
+    let values = Array.from(map.values())
+    if(typeof key === 'undefined') return [keys,values];
+    keys[index] = key
+    return new Map(keys.map((key, index_) => [key, values[index_]]))
+}
+export const editValue=(map: Map<string[], Function>, index: number, value: any)=>{
+    let keys = Array.from(map.keys())
+    let values = Array.from(map.values())
+    if(typeof value === 'undefined') return [keys,values];
+    values[index] = value
+    return new Map(keys.map((key, index_) => [key, values[index_]]))
+}

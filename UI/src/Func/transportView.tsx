@@ -1,5 +1,5 @@
 
-import { rif, RE, IHotkey, delay, RIF, Click } from "../RIF"
+import { rif, RE, IHotkey, delay, RIF, Click, on } from "../RIF"
 function enableItems(buttons: RIF, items: number[]) {
     buttons.items.forEach((item, index) => {
         if (items&&items.includes(index)) {
@@ -17,6 +17,8 @@ export const transportView: IHotkey = {
         get buttons() { return rif().class('infomodes-panel_B0O').class('button_ECf') }
     },
     MOUSE_EVENTS: async () => {
+        if((window as any).mioHotkeyMod.KEYS.mousedown != 0){return}
+        if(!on.func('transportView'))return
         await delay(200)
         const P = transportView.PATH
 

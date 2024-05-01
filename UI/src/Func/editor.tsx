@@ -46,25 +46,45 @@ rules.forEach(rule => {
     stylesheet.insertRule(rule, stylesheet.cssRules.length);
 });
 function setValue(
-    itemName: string[],
-    value: any,
+    itemName: string[] ,
+    value: string[] | string,
     inputClass = 'input_Wfi',
-    afterFunc = async () => {
+    afterFunc:boolean|Function = false,
+    matchFunc:boolean|Function = false,
+    repalceFunc = (i:Element[],value:string,index:any)=>{
+        setNativeValue(i[0], value)
+    }
+) {
+    if(!afterFunc){
+        afterFunc = async () => {
         const item = rif().class('editor-section_zoX').class('button_M6C').hasHtml('ThickStrokeArrowDown');
         item.click
         await delay(50)
         item.click
-    }
-) {
+    }}
+
+    if(!matchFunc){
+        matchFunc = (i:Element,itemName_=itemName)=>{
+                let match = false;
+                itemName.forEach(name => { if (i&&i.innerHTML.includes(name)) { match = true } });
+                return match;
+            }
+            
+        }
+
     Array.from(document.querySelectorAll(".row_d2o"))
-        .filter(i => {
-            let match = false;
-            itemName.forEach(name => { if (i&&i.innerHTML.includes(name)) { match = true } });
-            return match;
+        .filter(i => (matchFunc as Function)(i,itemName))
+        .map(i => i.querySelectorAll(inputClass))
+        .forEach((i: any, index) => {
+            let _value
+            if (value instanceof Array) {
+                _value = value[index]
+            }else{
+                _value = value
+            }
+            repalceFunc(i, _value, index)
         })
-        .map(i => i.querySelector(inputClass))
-        .forEach((i: any, index) => setNativeValue(i, value))
-    setTimeout(afterFunc,50)
+    setTimeout((afterFunc as Function),50)
 }
 
 
@@ -77,9 +97,14 @@ export const editor: IHotkey = {
         },
         ['F4'], async () => {
             if (!on.Editor) return;
-            if (!on.Editor) return;
             setValue(["父网格", "Parent Mesh"], '0', '.input_Wfi')
+        },
+        ['F6'], async () => {
+            if (!on.Editor) return;
+            (window as any).Efunc()
         }
     )
-}
+};
+;
+
 

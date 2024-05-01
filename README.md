@@ -7,6 +7,8 @@ Adds many shortcuts and quick access features.
 `shift + A/D`: Radius / Brush thickness  
 `shift + W/S`: Depth / Flow rate / Brush strength  
 `alt + W/S`: Regional themes  
+`I`: close info panel
+`shift + I`: Toggle 'Always Close Info Panel' Switch
 
 ### Net Tool  
 `shift + 1`: Roads - Alignment - No fragment preset  
@@ -26,6 +28,7 @@ Adds many shortcuts and quick access features.
 ### Debugging  
 `shift + alt`: Highlight elements  
 `shift + alt + E`: Print elements  
+`shift + F1`: open console
 
 ### Editor  
 `F3`: Set object probability to 100%  
@@ -34,5 +37,10 @@ Adds many shortcuts and quick access features.
 ## Additional Features  
 `Smart Close`: Double-click to quickly close the TLE mod panel  
 `Home Interface Category Saving`: Use the Home key to toggle the object list, saving the category  
-`Left Click`: If the public transport view is open and a transport asset is selected from the toolbar, only the corresponding public transport elements are displayed  
+`transport view func`: If the public transport view is open and a transport asset is selected from the toolbar, only the corresponding public transport elements are displayed  
 `Scroll Wheel`: Scroll through asset contents  
+
+## console cmd
+`transportView` : Toggle 'transport view func' Switch
+`infoPanel.claerMode`: Toggle 'Always Close Info Panel' Switch  
+for more cmd and function ,see : https://github.com/thx114/mioHotkeysMod/wiki/Functions
